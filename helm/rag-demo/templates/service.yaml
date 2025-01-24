@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rag-demo-service
+  name: rag-demo
   labels:
     app: rag-demo
 spec:
