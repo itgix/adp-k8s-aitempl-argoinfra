@@ -21,14 +21,7 @@ spec:
         image: gitlab.itgix.com:5050/rnd/app-platform/rag-demo:9ec73f2c
         command: [ "python3", "main.py" ]  # Added command to run the script
         resources:
-          requests:
-            memory: "1024Mi"
-            cpu: "100m"
-            nvidia.com/gpu: 1  # Request 1 GPU
-          limits:
-            memory: "2048Mi"
-            cpu: "1"
-            nvidia.com/gpu: 1  # Limit to 1 GPU
+{{ toYaml .Values.resources | indent 10 }}
         ports:
         - containerPort: 8080  # Application's listening port
           protocol: TCP

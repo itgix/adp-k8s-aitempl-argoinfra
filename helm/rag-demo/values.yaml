@@ -17,3 +17,13 @@ ingress:
     nsPrefix: false
     tls: false
     baseDomain: ragdemo.itgix.eu
+
+resources:
+  requests:
+    memory: "1024Mi"
+    cpu: "100m"
+    #nvidia.com/gpu: 1  # Request 1 GPU
+  limits:
+    memory: "2048Mi"
+    cpu: "1"
+    #nvidia.com/gpu: 1  # Limit to 1 GPU
