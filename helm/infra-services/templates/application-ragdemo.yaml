@@ -1,8 +1,8 @@
-{{- if index .Values "infra-services" "qdrant_vectordb" }}
+{{- if index .Values "infra-services" "ragdemo_vectordb" }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: qdrant-vectordb
+  name: rag-demo
   annotations:
     argocd.argoproj.io/sync-wave: "1"
   # Add this finalizer ONLY if you want these to cascade delete.
@@ -13,18 +13,18 @@ spec:
   source:
     repoURL: {{ index .Values "infra-services" "gitops_destination_repo" }}
     targetRevision: HEAD
-    path: helm/qdrant-vectordb
+    path: helm/rag-demo
     helm:
       valueFiles:
-        - ../qdrant-vectordb/values/{{ index .Values "infra-services" "environment" }}/{{ index .Values "infra-services" "region" }}/values.yaml
+        - ../rag-demo/values/{{ index .Values "infra-services" "environment" }}/{{ index .Values "infra-services" "region" }}/values.yaml
         - ../infra-services/values/{{ index .Values "infra-services" "environment" }}/{{ index .Values "infra-services" "region" }}/infra-facts.yaml
       values: |
         ingress:
           hosts:
-            - host: qdrant-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
+            - host: ragdemo-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: qdrant
+    namespace: rag-demo
   syncPolicy:
     automated:
       prune: true
