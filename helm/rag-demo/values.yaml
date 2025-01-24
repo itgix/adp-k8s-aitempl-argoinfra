@@ -1,9 +1,19 @@
-infra-services:
-  # default value, this should be overwritten from infra-facts with the real value for this env
-  aws_account_id: '722377226063'
-  eks_cluster_name: dummy-cluster
-
-adpagent:
-  product_code: "5uhf95x0bz6d518p795cfi07s"
-  usage_dimension: "ManagedAvailableMemory"
-  image: 709825985650.dkr.ecr.us-east-1.amazonaws.com/itgix/itgix-adp-agent:v1.0.1
+ingress:
+  enabled: true
+  annotations:
+    alb.ingress.kubernetes.io/actions.response-503: |
+      {"type":"fixed-response","fixedResponseConfig":{"contentType":"text/plain","statusCode":"503","messageBody":"503 Service Unavailable"}}
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig":
+      { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    alb.ingress.kubernetes.io/group.name: public
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/success-codes: 200-404
+    alb.ingress.kubernetes.io/target-type: ip
+    kubernetes.io/ingress.class: alb
+  dynamic:
+    enabled: true
+    nsPrefix: false
+    tls: false
+    baseDomain: ragdemo.itgix.eu
