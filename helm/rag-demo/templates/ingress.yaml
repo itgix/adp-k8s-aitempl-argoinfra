@@ -1,5 +1,4 @@
----
-{{- if .Values.ingress.enabled -}}
+{{ if .Values.ingress.enabled -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -7,7 +6,6 @@ metadata:
   annotations:
 {{ toYaml .Values.ingress.annotations | indent 4 }}
   labels:
-    app: {{ .Values.appId }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
@@ -25,7 +23,7 @@ spec:
               port:
                 number: 8080
 {{- end }}
-  {{- if $.Values.ingress.dynamic.tls }}
+{{- if $.Values.ingress.dynamic.tls }}
   tls:
     {{- range $cfg := .Values.ingress.dynamic.cfgs }}
     - hosts:
@@ -37,7 +35,6 @@ spec:
       secretName: {{ printf "%s.%s-tls" .name $.Values.ingress.dynamic.baseDomain }}
       {{- end }}
     {{- end }}
-  {{- end }}
 {{- else }}
 {{- range $host := .Values.ingress.hosts }}
   - host: {{ $host.host | quote }}
