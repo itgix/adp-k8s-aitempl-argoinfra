@@ -50,12 +50,12 @@ qdrant:
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/target-type: ip
       kubernetes.io/ingress.class: alb
-    hosts:
-      - host: example-domain.com
-        paths:
-          - path: /
-            pathType: Prefix
-            servicePort: 6333
+#    hosts:
+#      - host: example-domain.com
+#        paths:
+#          - path: /
+#            pathType: Prefix
+#            servicePort: 6333
     tls: [ ]
       # - hosts:
     #    - example-domain.com
