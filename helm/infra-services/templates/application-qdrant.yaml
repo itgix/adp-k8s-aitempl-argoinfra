@@ -21,6 +21,7 @@ spec:
       values: |
         qdrant:
           ingress:
+            enabled: true
             hosts:
               - host: qdrant-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
   destination:
