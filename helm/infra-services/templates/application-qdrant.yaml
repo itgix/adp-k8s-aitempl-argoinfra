@@ -24,6 +24,10 @@ spec:
             enabled: true
             hosts:
               - host: qdrant-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
+                paths:
+                  - path: /
+                    pathType: Prefix
+                    servicePort: 6333
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: qdrant
