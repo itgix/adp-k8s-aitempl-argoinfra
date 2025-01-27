@@ -40,7 +40,7 @@ qdrant:
         checksEnabled: false
 
   ingress:
-    enabled: true
+    enabled: false
     ingressClassName: ""
     additionalLabels: { }
     annotations:
