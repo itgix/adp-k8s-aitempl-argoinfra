@@ -18,7 +18,7 @@ ingress:
     tls: false
     baseDomain: ragdemo.itgix.eu
 
-image: gitlab.itgix.com:5050/rnd/app-platform/rag-demo:460e7d17
+image: gitlab.itgix.com:5050/rnd/app-platform/rag-demo:f9d78494
 
 resources:
   requests:
