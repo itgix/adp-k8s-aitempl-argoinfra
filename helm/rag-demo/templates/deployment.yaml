@@ -18,7 +18,7 @@ spec:
       - name: gitlab-itgix-secret
       containers:
       - name: gpu-container
-        image: gitlab.itgix.com:5050/rnd/app-platform/rag-demo:9ec73f2c
+        image: {{ .Values.image }}
         command: [ "python3", "main.py" ]  # Added command to run the script
         resources:
 {{ toYaml .Values.resources | indent 10 }}
@@ -26,13 +26,7 @@ spec:
         - containerPort: 8080  # Application's listening port
           protocol: TCP
         env:
-        - name: QDRANT_URL
-          value: "http://qdrant-vectordb.qdrant:6333/"
-        - name: QDRANT_API_KEY
-          value: "superSecretApiKeyHere"
-        ## To remove once we configure IRSA
-        - name: AWS_PROFILE
-          value: temp
+{{ toYaml .Values.env | indent 10 }}
       tolerations:
       - key: "nvidia.com/gpu"
         operator: "Exists"
