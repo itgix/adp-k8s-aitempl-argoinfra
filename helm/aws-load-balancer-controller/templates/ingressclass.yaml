@@ -9,3 +9,4 @@ spec:
   parameters:
     apiGroup: eks.amazonaws.com
     kind: IngressClassParams
+    name: alb
