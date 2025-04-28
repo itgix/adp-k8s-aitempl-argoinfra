@@ -1,0 +1,39 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ragdemo-ui{{ .Release.Namespace }}
+  annotations:
+{{ toYaml .Values.ingress.annotations | indent 4 }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  rules:
+{{- if .Values.ingress.dynamic.enabled }}
+  - host: ragdemo-ui-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: "rag-demo-ui"
+              port:
+                number: 8080
+{{- end }}
+{{- if $.Values.ingress.dynamic.tls }}
+  tls:
+    {{- range $cfg := .Values.ingress.dynamic.cfgs }}
+    - hosts:
+      {{- if $.Values.ingress.dynamic.nsPrefix }}
+        - {{ printf "%s-%s.%s" .name $.Release.Namespace $.Values.ingress.dynamic.baseDomain | replace "pop-" "" }}
+      secretName: {{ printf "%s-%s.%s-tls" .name $.Release.Namespace $.Values.ingress.dynamic.baseDomain | replace "pop-" "" }}
+      {{- else }}
+        - {{ printf "%s.%s" .name $.Values.ingress.dynamic.baseDomain }}
+      secretName: {{ printf "%s.%s-tls" .name $.Values.ingress.dynamic.baseDomain }}
+      {{- end }}
+    {{- end }}
+{{- end }}
+{{- end }}
