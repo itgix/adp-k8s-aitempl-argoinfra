@@ -18,7 +18,7 @@ ingress:
     tls: false
     baseDomain: ragdemo.itgix.eu
 
-image: gitlab.itgix.com:5050/rnd/app-platform/rag-demo:f9d78494
+image: 722377226063.dkr.ecr.eu-west-1.amazonaws.com/rag-demo:ver10
 
 resources:
   requests:
@@ -31,13 +31,9 @@ resources:
     #nvidia.com/gpu: 1  # Limit to 1 GPU
 
 env:
-- name: QDRANT_URL
-  value: "http://qdrant-vectordb.qdrant:6333/"
-- name: QDRANT_API_KEY
-  value: "superSecretApiKeyHere"
-- name: BUCKET_NAME
-  value: your-bucket-name-here 
-- name: FRONTEND_DOMAIN
-  value: "http://your-frontend-domain-here"
-- name: AI_MODEL
-  value: "AI-MODEL-NAME"
+- name: BACKEND_URL
+  value: "http://ragdemo-tst.itgix.eu"
+
+variables:
+  wsUrl: "ws://ragdemo-tst.itgix.eu/ws"
+  uploadUrl: "http://ragdemo-tst.itgix.eu/uploadfiles"
