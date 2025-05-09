@@ -14,6 +14,7 @@ spec:
       labels:
         app: rag-demo
     spec:
+      serviceAccountName: ai-service-account
       imagePullSecrets:
       - name: gitlab-itgix-secret
       containers:

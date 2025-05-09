@@ -1,33 +1,34 @@
+{{- if .Values.ragdemoCX }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rag-demo-ui
+  name: rag-demo-cx
   labels:
-    app: rag-demo-ui
+    app: rag-demo-cx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rag-demo-ui
+      app: rag-demo-cx
   template:
     metadata:
       labels:
-        app: rag-demo-ui
+        app: rag-demo-cx
     spec:
       serviceAccountName: ai-service-account
       imagePullSecrets:
       - name: gitlab-itgix-secret
       containers:
-      - name: rag-demo-ui
-        image: {{ .Values.image }}
+      - name: rag-demo-cx
+        image: {{ .Values.ragdemoCXimage }}
         command: [ "python3", "main.py" ]  # Added command to run the script
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+{{ toYaml .Values.ragdemoCXresources | indent 10 }}
         ports:
         - containerPort: 8080  # Application's listening port
           protocol: TCP
         env:
-{{ toYaml .Values.env | indent 10 }}
+{{ toYaml .Values.ragdemoCXenv | indent 10 }}
       tolerations:
         - key: "nvidia.com/gpu"
           operator: "Exists"
@@ -48,3 +49,4 @@ metadata:
 data:
   .dockerconfigjson: eyJhdXRocyI6eyJnaXRsYWIuaXRnaXguY29tOjUwNTAiOnsidXNlcm5hbWUiOiJyYWctZGVtby11c2VyLWRvY2tlciIsInBhc3N3b3JkIjoiZ2xkdC1QQXdmU3plLTZQTVF3X0x1eHRzeSIsImF1dGgiOiJjbUZuTFdSbGJXOHRkWE5sY2kxa2IyTnJaWEk2WjJ4a2RDMVFRWGRtVTNwbExUWlFUVkYzWDB4MWVIUnplUT09In19fQ==
 type: kubernetes.io/dockerconfigjson
+{{- end }}

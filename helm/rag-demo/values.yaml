@@ -18,7 +18,7 @@ ingress:
     tls: false
     baseDomain: ragdemo.itgix.eu
 
-image: gitlab.itgix.com:5050/rnd/app-platform/rag-demo:f9d78494
+image: 722377226063.dkr.ecr.eu-west-1.amazonaws.com/rag-demo:v22
 
 resources:
   requests:
@@ -41,3 +41,26 @@ env:
   value: "http://your-frontend-domain-here"
 - name: AI_MODEL
   value: "AI-MODEL-NAME"
+
+
+ragdemoCX: true
+
+ragdemoCXimage: 722377226063.dkr.ecr.eu-west-1.amazonaws.com/rag-demo:ver11
+
+ragdemoCXresources:
+  requests:
+    memory: "3052Mi"
+    cpu: "100m"
+    #nvidia.com/gpu: 1  # Request 1 GPU
+  limits:
+    memory: "3052Mi"
+    cpu: "2"
+    #nvidia.com/gpu: 1  # Limit to 1 GPU
+
+ragdemoCXenv:
+- name: BACKEND_URL
+  value: "http://ragdemo-t0805.itgix.eu"
+
+ragdemoCXvariables:
+  wsUrl: "ws://ragdemo-t0805.itgix.eu/ws"
+  uploadUrl: "http://ragdemo-t0805.itgix.eu/uploadfiles"
