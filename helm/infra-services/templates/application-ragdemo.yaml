@@ -22,6 +22,7 @@ spec:
         ingress:
           hosts:
             - host: ragdemo-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
+            - host: ragdemo-cx-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: rag-demo

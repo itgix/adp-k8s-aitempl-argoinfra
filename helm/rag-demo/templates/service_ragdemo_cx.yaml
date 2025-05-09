@@ -1,14 +1,17 @@
+{{- if .Values.ragdemoCX }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: rag-demo-ui
+  name: rag-demo-cx
   labels:
-    app: rag-demo-ui
+    app: rag-demo-cx
 spec:
   selector:
-    app: rag-demo-ui
+    app: rag-demo-cx
   ports:
   - protocol: TCP
     port: 8080         # External port
     targetPort: 8080 # Container's listening port
   type: ClusterIP    # Change to NodePort or LoadBalancer as needed
+{{- end }}
+

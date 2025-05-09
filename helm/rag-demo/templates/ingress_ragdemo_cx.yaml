@@ -1,8 +1,8 @@
-{{- if .Values.ingress.enabled }}
+{{- if and .Values.ingress.enabled  .Values.ragdemoCX }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ragdemo-ui{{ .Release.Namespace }}
+  name: ragdemo-cx-{{ .Release.Namespace }}
   annotations:
 {{ toYaml .Values.ingress.annotations | indent 4 }}
   labels:
@@ -12,14 +12,14 @@ metadata:
 spec:
   rules:
 {{- if .Values.ingress.dynamic.enabled }}
-  - host: ragdemo-ui-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
+  - host: ragdemo-cx-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
     http:
       paths:
         - path: /
           pathType: Prefix
           backend:
             service:
-              name: "rag-demo-ui"
+              name: "rag-demo-cx"
               port:
                 number: 8080
 {{- end }}
