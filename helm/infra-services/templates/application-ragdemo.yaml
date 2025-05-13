@@ -23,6 +23,11 @@ spec:
           hosts:
             - host: ragdemo-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
             - host: ragdemo-cx-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
+        env:
+        - name: BUCKET_NAME
+          value: itgix-rag-demo-{{ index .Values "infra-services" "environment" }}-{{ index .Values "infra-services" "region" }}
+        - name: FRONTEND_DOMAIN
+          value: "ragdemo-cx-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}"
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: rag-demo
