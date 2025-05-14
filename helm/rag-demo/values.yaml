@@ -38,7 +38,7 @@ env:
 - name: BUCKET_NAME
   value: itgix-rag-demo 
 - name: FRONTEND_DOMAIN
-  value: "ragdemo-cx-t0805.itgix.eu"
+  value: ""
 - name: AI_MODEL
   value: "arn:aws:bedrock:us-east-1:722377226063:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
 
