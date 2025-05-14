@@ -18,9 +18,7 @@ ingress:
     tls: false
     baseDomain: ragdemo.itgix.eu
 
-ingressClassName: "alb"
-
-image: 722377226063.dkr.ecr.eu-west-1.amazonaws.com/rag-demo:v22
+image: 722377226063.dkr.ecr.eu-west-1.amazonaws.com/rag-demo:v25
 
 resources:
   requests:
@@ -38,16 +36,16 @@ env:
 - name: QDRANT_API_KEY
   value: "superSecretApiKeyHere"
 - name: BUCKET_NAME
-  value: your-bucket-name-here 
+  value: itgix-rag-demo 
 - name: FRONTEND_DOMAIN
-  value: "http://your-frontend-domain-here"
+  value: "ragdemo-cx-t0805.itgix.eu"
 - name: AI_MODEL
-  value: "AI-MODEL-NAME"
+  value: "arn:aws:bedrock:us-east-1:722377226063:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
 
 
 ragdemoCX: true
 
-ragdemoCXimage: 722377226063.dkr.ecr.eu-west-1.amazonaws.com/rag-demo:ver11
+ragdemoCXimage: 722377226063.dkr.ecr.eu-west-1.amazonaws.com/rag-demo:ver19
 
 ragdemoCXresources:
   requests:
@@ -61,8 +59,4 @@ ragdemoCXresources:
 
 ragdemoCXenv:
 - name: BACKEND_URL
-  value: "http://ragdemo-t0805.itgix.eu"
-
-ragdemoCXvariables:
-  wsUrl: "ws://ragdemo-t0805.itgix.eu/ws"
-  uploadUrl: "http://ragdemo-t0805.itgix.eu/uploadfiles"
+  value: "http://rag-demo:8080"
