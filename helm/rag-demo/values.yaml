@@ -20,7 +20,7 @@ ingress:
 
 ingressClassName: "alb"
 
-image: 722377226063.dkr.ecr.eu-west-1.amazonaws.com/rag-demo:v25
+image: 722377226063.dkr.ecr.eu-west-1.amazonaws.com/rag-demo:26
 
 resources:
   requests:
