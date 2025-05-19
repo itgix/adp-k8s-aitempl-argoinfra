@@ -33,20 +33,4 @@ spec:
         - key: "nvidia.com/gpu"
           operator: "Exists"
           effect: "NoSchedule"
-      volumeMounts:
-        - name: config-volume
-          mountPath: /app/static/js/config.js
-          subPath: config.js
-      volumes:
-        - name: config-volume
-          configMap:
-            name: frontend-config
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: gitlab-itgix-secret
-data:
-  .dockerconfigjson: eyJhdXRocyI6eyJnaXRsYWIuaXRnaXguY29tOjUwNTAiOnsidXNlcm5hbWUiOiJyYWctZGVtby11c2VyLWRvY2tlciIsInBhc3N3b3JkIjoiZ2xkdC1QQXdmU3plLTZQTVF3X0x1eHRzeSIsImF1dGgiOiJjbUZuTFdSbGJXOHRkWE5sY2kxa2IyTnJaWEk2WjJ4a2RDMVFRWGRtVTNwbExUWlFUVkYzWDB4MWVIUnplUT09In19fQ==
-type: kubernetes.io/dockerconfigjson
 {{- end }}
