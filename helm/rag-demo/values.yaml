@@ -35,13 +35,6 @@ resources:
     #nvidia.com/gpu: 1  # Limit to 1 GPU
 
 env:
-<<<<<<< HEAD
-  QDRANT_URL: "http://qdrant-vectordb.qdrant:6333/"
-  QDRANT_API_KEY: "superSecretApiKeyHere"
-  BUCKET_NAME: itgix-rag-demo
-  FRONTEND_DOMAIN: ""
-  AI_MODEL: "arn:aws:bedrock:us-east-1:722377226063:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
-=======
 - name: QDRANT_URL
   value: "http://qdrant-vectordb.qdrant:6333/"
 - name: QDRANT_API_KEY
@@ -55,7 +48,7 @@ env:
   value: ""
 - name: AI_MODEL
   value: "arn:aws:bedrock:us-east-1:722377226063:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
->>>>>>> c99b731 (Changed the repository for rag-demo)
+
 
 externalsecretEnv:
   data:
