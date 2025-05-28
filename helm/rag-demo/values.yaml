@@ -48,10 +48,9 @@ env:
 
 externalsecretEnv:
   data:
-    - secretKey: QDRANT_API_KEY
+    - secretKey: password
       remoteRef:
-        key: "quadrant-env-secret"
-        property: QDRANT_API_KEY
+        key: "qdrant-env-secret"
 
 
 

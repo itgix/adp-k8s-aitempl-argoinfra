@@ -31,7 +31,10 @@ spec:
         - name: QDRANT_URL
           value: "http://qdrant-vectordb.qdrant:6333/"
         - name: QDRANT_API_KEY
-          key: QDRANT_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: qdrant-env-secret
+              key: password
         - name: AI_MODEL
           value: "arn:aws:bedrock:us-east-1:722377226063:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
   destination:
