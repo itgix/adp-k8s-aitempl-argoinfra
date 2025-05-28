@@ -31,6 +31,13 @@ spec:
         - name: {{ $name }}
           value: {{ $val | quote }}
 {{- end }}
+{{- range .Values.secretEnv }}
+  - name: {{ .name }}
+    valueFrom:
+      secretKeyRef:
+        name: {{ .secretName }}
+        key: {{ .secretKey }}
+{{- end }}
       tolerations:
       - key: "nvidia.com/gpu"
         operator: "Exists"

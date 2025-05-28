@@ -28,7 +28,7 @@ spec:
         - containerPort: 8080  # Application's listening port
           protocol: TCP
         env:
-{{- range $name, $val := .Values.env }}
+{{- range $name, $val := .Values.ragdemoCXenv }}
         - name: {{ $name }}
           value: {{ $val | quote }}
 {{- end }}

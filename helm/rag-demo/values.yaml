@@ -43,17 +43,14 @@ env:
   value: ""
 - name: AI_MODEL
   value: "arn:aws:bedrock:us-east-1:722377226063:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
-- name: QDRANT_API_KEY
-  valueFrom:
-    secretKeyRef:
-      name: qdrant-env-secret
-      key: password
 
-externalsecretEnv:
-  data:
-    - secretKey: password
-      remoteRef:
-        key: "qdrant-env-secret"
+
+secretEnv:
+  - name: QDRANT_API_KEY
+    secretName: qdrant-env-secret
+    secretKey: password
+
+
 
 
 
