@@ -24,9 +24,24 @@ spec:
             - host: ragdemo-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
             - host: ragdemo-cx-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
         env:
-          BUCKET_NAME: {{ index .Values "infra-services" "project_name" }}-s3-{{ index .Values "infra-services" "region_short" }}-{{ index .Values "infra-services" "environment" }}-rag-demo
-          FRONTEND_DOMAIN: ragdemo-cx-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}
-          AI_MODEL: "arn:aws:bedrock:us-east-1:{{ index .Values "infra-services" "aws_account_id" }}:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
+        - name: BUCKET_NAME
+          value: {{ index .Values "infra-services" "project_name" }}-s3-{{ index .Values "infra-services" "region_short" }}-{{ index .Values "infra-services" "environment" }}-rag-demo
+        - name: FRONTEND_DOMAIN
+          value: "ragdemo-cx-{{ index .Values "infra-services" "environment" }}.{{ index .Values "infra-services" "dns_main_domain" }}"
+        - name: QDRANT_URL
+          value: "http://qdrant-vectordb.qdrant:6333/"
+        - name: QDRANT_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: qdrant-env-secret
+              key: password
+        - name: AI_MODEL
+          value: "arn:aws:bedrock:us-east-1:722377226063:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
+        externalsecretEnv:
+          data:
+            - secretKey: password
+              remoteRef:
+                key: "{{ index .Values "infra-services" "region_short" }}-{{ index .Values "infra-services" "environment" }}-{{ index .Values "infra-services" "project_name" }}-qdrant-env-secret" 
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: rag-demo
