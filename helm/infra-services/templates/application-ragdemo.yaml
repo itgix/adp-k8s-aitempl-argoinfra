@@ -37,6 +37,11 @@ spec:
               key: password
         - name: AI_MODEL
           value: "arn:aws:bedrock:us-east-1:722377226063:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
+        externalsecretEnv:
+          data:
+            - secretKey: password
+              remoteRef:
+                key: "{{ index .Values "infra-services" "region_short" }}-{{ index .Values "infra-services" "environment" }}-{{ index .Values "infra-services" "project_name" }}-qdrant-env-secret" 
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: rag-demo
