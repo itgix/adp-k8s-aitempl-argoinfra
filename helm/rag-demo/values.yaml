@@ -47,12 +47,11 @@ env:
   value: "arn:aws:bedrock:us-east-1:722377226063:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
 
 externalsecretEnv:
-  enabled: true
   data:
-    - secretKey: regcred
+    - secretKey: QDRANT_API_KEY
       remoteRef:
-        key: "ragDemo-external-secret"
-        property: regcred
+        key: "quadrant-env-secret"
+        property: QDRANT_API_KEY
 
 
 
