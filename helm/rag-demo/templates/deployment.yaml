@@ -27,7 +27,10 @@ spec:
         - containerPort: 8080  # Application's listening port
           protocol: TCP
         env:
-{{ toYaml .Values.env | indent 10 }}
+{{- range $name, $val := .Values.env }}
+        - name: {{ $name }}
+          value: {{ $val | quote }}
+{{- end }}
       tolerations:
       - key: "nvidia.com/gpu"
         operator: "Exists"
