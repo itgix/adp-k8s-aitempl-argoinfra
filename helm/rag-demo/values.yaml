@@ -22,7 +22,7 @@ ingress:
 
 ingressClassName: "alb"
 
-image: gitlab.itgix.com:5050/rnd/app-platform/rag-demo:f9d78494
+image: gitlab.itgix.com:5050/rnd/app-platform/rag-demo:5289ebfc
 
 resources:
   requests:
