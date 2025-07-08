@@ -44,7 +44,7 @@ qdrant:
 
   ingress:
     enabled: false
-    ingressClassName: ""
+    ingressClassName: "alb"
     additionalLabels: { }
     annotations:
       alb.ingress.kubernetes.io/group.name: public

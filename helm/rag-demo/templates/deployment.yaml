@@ -14,6 +14,7 @@ spec:
       labels:
         app: rag-demo
     spec:
+      serviceAccountName: ai-service-account
       imagePullSecrets:
       - name: gitlab-itgix-secret
       containers:
@@ -26,7 +27,17 @@ spec:
         - containerPort: 8080  # Application's listening port
           protocol: TCP
         env:
-{{ toYaml .Values.env | indent 10 }}
+{{- range .Values.env }}
+        - name: {{ .name }}
+          value: {{ .value | quote }}
+{{- end }}
+{{- range .Values.secretEnv }}
+        - name: {{ .name }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ .secretName }}
+              key: {{ .secretKey }}
+{{- end }}
       tolerations:
       - key: "nvidia.com/gpu"
         operator: "Exists"
