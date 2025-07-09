@@ -11,9 +11,12 @@ qdrant:
   nameOverride: ""
   fullnameOverride: ""
   args: [ "./config/initialize.sh" ]
-  env: { }
-  # - name: QDRANT_ALLOW_RECOVERY_MODE
-  #   value: true
+  env:
+    - name: QDRANT_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: qdrant-env-secret 
+          key: password
 
   # checks - Readiness and liveness checks can only be enabled for either http (REST) or grpc (multiple checks not supported)
   # grpc checks are only available from k8s 1.24+ so as of per default we check http
@@ -239,10 +242,10 @@ qdrant:
   # true: an api key will be auto-generated
   # string: the given string will be set as an apikey
   # Also supports reading in from an external secret using
-  valueFrom:
-    secretKeyRef:
-      name: qdrant-env-secret 
-      key: password
+  # valueFrom:
+  #   secretKeyRef:
+  #     name:
+  #     key:
   #apiKey: "superSecretApiKeyHere"
 
   # read-only api key for authentication at qdrant
