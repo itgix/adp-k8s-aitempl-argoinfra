@@ -12,7 +12,7 @@ qdrant:
   fullnameOverride: ""
   args: [ "./config/initialize.sh" ]
   env:
-    - name: QDRANT_API_KEY
+    - name: QDRANT__SERVICE__API_KEY
       valueFrom:
         secretKeyRef:
           name: qdrant-env-secret 
