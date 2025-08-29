@@ -1,3 +1,5 @@
+appId: ragDemo
+
 ingress:
   enabled: true
   annotations:
@@ -18,7 +20,10 @@ ingress:
     tls: false
     baseDomain: ragdemo.itgix.eu
 
+ingressClassName: "alb"
+
 image: public.ecr.aws/f3k1j9c5/rag-demo-backend:30
+
 
 resources:
   requests:
@@ -33,8 +38,36 @@ resources:
 env:
 - name: QDRANT_URL
   value: "http://qdrant-vectordb.qdrant:6333/"
-- name: QDRANT_API_KEY
-  value: "superSecretApiKeyHere"
-## To remove once we configure IRSA
-- name: AWS_PROFILE
-  value: temp
+- name: BUCKET_NAME
+  value: itgix-rag-demo 
+- name: FRONTEND_DOMAIN
+  value: ""
+- name: AI_MODEL
+  value: "arn:aws:bedrock:us-east-1:722377226063:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
+
+
+secretEnv:
+  - name: QDRANT_API_KEY
+    secretName: qdrant-env-secret
+    secretKey: password
+
+
+
+
+
+ragdemoCX: true
+
+ragdemoCXimage: public.ecr.aws/f3k1j9c5/rag-demo:ver19
+
+ragdemoCXresources:
+  requests:
+    memory: "3052Mi"
+    cpu: "100m"
+    #nvidia.com/gpu: 1  # Request 1 GPU
+  limits:
+    memory: "3052Mi"
+    cpu: "2"
+    #nvidia.com/gpu: 1  # Limit to 1 GPU
+
+ragdemoCXenv:
+  BACKEND_URL: "http://rag-demo:8080"
