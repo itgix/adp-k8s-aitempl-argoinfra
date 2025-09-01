@@ -22,15 +22,16 @@ ingress:
 
 ingressClassName: "alb"
 
-image: gitlab.itgix.com:5050/rnd/app-platform/rag-demo:5289ebfc
+image: public.ecr.aws/f3k1j9c5/rag-demo-backend:30
+
 
 resources:
   requests:
-    memory: "3052Mi"
-    cpu: "100m"
+    memory: "6144Mi"
+    cpu: "500m"
     #nvidia.com/gpu: 1  # Request 1 GPU
   limits:
-    memory: "3052Mi"
+    memory: "8192Mi"
     cpu: "2"
     #nvidia.com/gpu: 1  # Limit to 1 GPU
 
