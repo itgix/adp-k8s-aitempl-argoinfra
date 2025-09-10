@@ -32,6 +32,8 @@ spec:
           value: "http://qdrant-vectordb.qdrant:6333/"
         - name: AI_MODEL
           value: "arn:aws:bedrock:us-east-1:722377226063:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
+        - name: PYTHONUNBUFFERED
+          value: "1"
         externalsecretEnv:
           data:
             - secretKey: password
