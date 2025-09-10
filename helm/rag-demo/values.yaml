@@ -22,7 +22,7 @@ ingress:
 
 ingressClassName: "alb"
 
-image: public.ecr.aws/f3k1j9c5/rag-demo-backend:30
+image: public.ecr.aws/f3k1j9c5/rag-demo-backend:31
 
 
 resources:
@@ -44,7 +44,8 @@ env:
   value: ""
 - name: AI_MODEL
   value: "arn:aws:bedrock:us-east-1:722377226063:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0"
-
+- name: PYTHONUNBUFFERED
+  value: true
 
 secretEnv:
   - name: QDRANT_API_KEY
