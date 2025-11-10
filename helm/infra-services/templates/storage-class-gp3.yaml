@@ -1,11 +1,14 @@
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: gp3
+  name: {{ .Values.storageClass.name | default "gp3" }}
   annotations:
-    storageclass.kubernetes.io/is-default-class: "true"
-allowVolumeExpansion: true
-provisioner: ebs.csi.eks.amazonaws.com
-volumeBindingMode: WaitForFirstConsumer
+    storageclass.kubernetes.io/is-default-class: "{{ .Values.storageClass.isDefault | default "true" }}"
+allowVolumeExpansion: {{ .Values.storageClass.allowVolumeExpansion | default true }}
+provisioner: {{ .Values.storageClass.provisioner | default "ebs.csi.eks.amazonaws.com" }}
+volumeBindingMode: {{ .Values.storageClass.volumeBindingMode | default "WaitForFirstConsumer" }}
 parameters:
-  type: gp3
+  type: {{ .Values.storageClass.type | default "gp3" }}
+  {{- if index .Values "infra-services" "storage_class_custom_params_enabled" }}
+  {{- toYaml .Values.storageClass.customParameters | nindent 2 }}
+  {{- end }}
