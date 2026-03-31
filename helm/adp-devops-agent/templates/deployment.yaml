@@ -38,10 +38,6 @@ spec:
       containers:
         - name: agent
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          {{- if .Values.imagePullSecrets }}
-          imagePullSecrets:
-          {{- toYaml .Values.imagePullSecrets | nindent 8 }}
-          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
