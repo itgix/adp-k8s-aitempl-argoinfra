@@ -26,8 +26,10 @@ spec:
 
     spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
+      {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
-      - name: gitlab-itgix-secret
+      {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+      {{- end }}
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -36,10 +38,10 @@ spec:
       containers:
         - name: agent
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/bin/sh", "-c"]
-          args:
-            - git config --global --add safe.directory /tmp/gitops-repo && exec python main.py
+          {{- if .Values.imagePullSecrets }}
+          imagePullSecrets:
+          {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -114,11 +116,3 @@ spec:
                       values:
                         - {{ .Release.Name }}
                 topologyKey: kubernetes.io/hostname
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: gitlab-itgix-secret
-data:
-  .dockerconfigjson: ewogICJhdXRocyI6IHsKICAgICJnaXRsYWIuaXRnaXguY29tOjUwNTAiOiB7CiAgICAgICJhdXRoIjogIllXUndMV1JsZG05d2N5MWhaMlZ1ZEMxMWMyVnlPbWRzWkhRdGJsZDFiblp2Ums1WE5tNWFOM1ZqWmtjM04yMD0iCiAgICB9CiAgfQp9
-type: kubernetes.io/dockerconfigjson

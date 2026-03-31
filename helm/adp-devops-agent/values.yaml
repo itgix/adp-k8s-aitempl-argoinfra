@@ -13,6 +13,13 @@ service:
 
 resources: {}
 
+imagePullSecrets:
+  - name: gitlab-itgix-secret
+
+externalSecretDocker:
+  name: qdrant-env-secret
+  remoteKey: gitlab-itgix-secret
+
 externalSecrets:
   secretStore: secretstore-aws
   secretName: adp/devops-agent
