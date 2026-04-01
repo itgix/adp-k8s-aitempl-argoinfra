@@ -13,12 +13,14 @@ service:
 
 resources: {}
 
-imagePullSecrets:
-  - name: gitlab-itgix-secret
+
 
 externalSecretDocker:
+  enabled: false
   name: gitlab-itgix-secret
   remoteKey: gitlab-itgix-secret
+  imagePullSecrets:
+    - name: gitlab-itgix-secret
 
 externalSecrets:
   secretStore: secretstore-aws
