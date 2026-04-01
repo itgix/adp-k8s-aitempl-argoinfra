@@ -41,7 +41,12 @@ spec:
                 key: "{{ index .Values "infra-services" "region_short" }}-{{ index .Values "infra-services" "environment" }}-{{ index .Values "infra-services" "project_name" }}-aws-secret-access-key"
             - secretKey: QDRANT__SERVICE__API_KEY
               remoteRef:
-                key: "{{ index .Values "infra-services" "region_short" }}-{{ index .Values "infra-services" "environment" }}-{{ index .Values "infra-services" "project_name" }}-qdrant-env-secret" 
+                key: "{{ index .Values "infra-services" "region_short" }}-{{ index .Values "infra-services" "environment" }}-{{ index .Values "infra-services" "project_name" }}-qdrant-env-secret"
+              - secretKey: QDRANT__SERVICE__API_KEY
+              remoteRef:
+                key: "{{ index .Values "infra-services" "region_short" }}-{{ index .Values "infra-services" "environment" }}-{{ index .Values "infra-services" "project_name" }}-qdrant-env-secret"
+        externalSecretDocker:
+          remoteKey: "{{ index .Values "infra-services" "region_short" }}-{{ index .Values "infra-services" "environment" }}-{{ index .Values "infra-services" "project_name" }}-gitlab-itgix-secret"
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: adp-devops-agent
