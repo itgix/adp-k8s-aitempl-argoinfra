@@ -2,9 +2,9 @@
 replicaCount: 1
 
 image:
-  repository: gitlab.itgix.com:5050/rnd/app-platform/adp-devops-agent
+  repository: 709825985650.dkr.ecr.us-east-1.amazonaws.com/itgix/itgix-adp-devops-agent
   pullPolicy: IfNotPresent
-  tag: 0c735d77
+  tag: v1.1.0
 
 service:
   name: adp-devops-agent
@@ -17,7 +17,7 @@ imagePullSecrets:
   - name: gitlab-itgix-secret
 
 externalSecretDocker:
-  name: qdrant-env-secret
+  name: gitlab-itgix-secret
   remoteKey: gitlab-itgix-secret
 
 externalSecrets:
