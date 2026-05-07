@@ -71,12 +71,6 @@ secretEnv:
   - name: API_TOKEN
     secretName: qdrant-env-secret
     secretKey: API_TOKEN
-#  - name: AWS_ACCESS_KEY_ID   
-#    secretName: qdrant-env-secret
-#    secretKey: AWS_ACCESS_KEY_ID 
-#  - name: AWS_SECRET_ACCESS_KEY   
-#    secretName: qdrant-env-secret
-#    secretKey: AWS_SECRET_ACCESS_KEY
 
 prompts:
   role_definition: |
