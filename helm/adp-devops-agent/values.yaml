@@ -15,7 +15,6 @@ resources: {}
 
 externalSecrets:
   secretStore: secretstore-aws
-  secretName: adp/devops-agent
 
 qdrant:
   QDRANT_URL: "http://qdrant-vectordb.qdrant:6333/"

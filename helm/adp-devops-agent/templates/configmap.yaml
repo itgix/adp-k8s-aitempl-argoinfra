@@ -21,7 +21,6 @@ data:
 
   # GitLab Settings
   GITLAB_URL: {{ .Values.gitLabSettings.GITLAB_URL | quote }}
-  GITLAB_TOKEN: {{ .Values.gitLabSettings.GITLAB_TOKEN | quote }}
   GITOPS_REPO_URL: {{ .Values.gitLabSettings.GITOPS_REPO_URL | quote }}
   GITOPS_REPO_PATH: {{ .Values.gitLabSettings.GITOPS_REPO_PATH | quote}}
 
