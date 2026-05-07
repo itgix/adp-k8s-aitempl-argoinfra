@@ -1,0 +1,9 @@
+# Add chart overrides for this environment/region here.
+image:
+  repository: gitlab.itgix.com:5050/rnd/app-platform/adp-devops-agent
+  pullPolicy: IfNotPresent
+  tag: 7914c7fc
+
+apiSettings:
+  DEBUG: "true"
+  LOG_LEVEL: "INFO"
