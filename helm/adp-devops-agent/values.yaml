@@ -58,18 +58,18 @@ configMap:
   name: adp-devops-agent-config
 
 secretEnv:
-  - name: QDRANT__SERVICE__API_KEY
-    secretName: qdrant-env-secret
-    secretKey: password
   - name: QDRANT_API_KEY
     secretName: qdrant-env-secret
     secretKey: password
+    secretManagerName: qdrant-env-secret
   - name: GITLAB_TOKEN
     secretName: qdrant-env-secret
     secretKey: GITLAB_TOKEN
+    secretManagerName: backstage-secret-gitlab-token
   - name: API_TOKEN
     secretName: qdrant-env-secret
     secretKey: API_TOKEN
+    secretManagerName: qdrant-env-secret
 
 prompts:
   role_definition: |
