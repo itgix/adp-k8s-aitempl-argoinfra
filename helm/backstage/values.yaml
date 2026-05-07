@@ -24,6 +24,12 @@ backstage:
               links:
                 - url: https://github.com/backstage/backstage/issues
                   title: GitHub Issues
+      proxy:
+        endpoints:
+          '/devops-agent':
+            target: 'http://adp-devops-agent.adp-agent.svc.cluster.local:8000'
+            headers:
+              Authorization: 'Bearer ${DEVOPS_AGENT_TOKEN}'
 
       organization:
         name: ${ORGANIZATION_NAME}
@@ -95,6 +101,10 @@ backstage:
               - allow: [Template]
           - type: url
             target: https://github.com/itgix/adp-backstage-scaffold/blob/main/argo-helm-templates/bckstg-scaf-templ-argocd-app-gitlab.yaml
+            rules:
+              - allow: [Template]
+          - type: url
+            target: https://github.com/itgix/adp-backstage-scaffold/blob/main/argo-helm-templates/bckstg-devops-agent-request.yaml
             rules:
               - allow: [Template]
           - type: file
