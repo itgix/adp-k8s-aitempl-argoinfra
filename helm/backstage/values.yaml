@@ -27,7 +27,7 @@ backstage:
       proxy:
         endpoints:
           '/devops-agent':
-            target: 'http://adp-devops-agent.adp-agent.svc.cluster.local:8000'
+            target: 'http://adp-devops-agent.adp-devops-agent.svc.cluster.local:8000'
             headers:
               Authorization: 'Bearer ${DEVOPS_AGENT_TOKEN}'
 
