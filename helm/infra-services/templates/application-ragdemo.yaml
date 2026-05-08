@@ -31,7 +31,7 @@ spec:
         - name: QDRANT_URL
           value: "http://qdrant-vectordb.qdrant:6333/"
         - name: AI_MODEL
-          value: "arn:aws:bedrock:us-east-1:{{ index .Values "infra-services" "aws_account_id" }}:inference-profile/global.anthropic.claude-opus-4-7"
+          value: "arn:aws:bedrock:us-east-1::inference-profile/global.anthropic.claude-opus-4-5-20251101-v1:0"
         - name: PYTHONUNBUFFERED
           value: "1"
         externalsecretEnv:
