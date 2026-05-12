@@ -29,8 +29,8 @@ apiSettings:
   API_TOKEN: "change-this-to-secure-random-token"
 
 awsSettings:
-  AWS_REGION: "us-east-1"
-  BEDROCK_MODEL_ID: "eu.anthropic.claude-opus-4-5-20251101-v1:0"
+  AWS_REGION: "eu-west-1"
+  BEDROCK_MODEL_ID: "eu.anthropic.claude-opus-4-6-v1"
   BEDROCK_MAX_TOKENS: "4096"
   BEDROCK_TEMPERATURE: "0.0"
 
@@ -56,6 +56,20 @@ serviceAccount:
   name: sa-itgix-adp-devops-agent
 configMap:
   name: adp-devops-agent-config
+
+# Model and package cache PVC
+# Stores both embedding models (HuggingFace) and GPU PyTorch packages
+modelCache:
+  enabled: true
+  size: 10Gi
+  storageClassName: standard
+  # Cache directory paths in container
+  hfCachePath: /var/lib/adp-agent/hf-cache
+  torchCachePath: /var/lib/adp-agent/torch-cache
+
+# PyTorch runtime configuration
+pytorch:
+  setupAtRuntime: true
 
 secretEnv:
   - name: QDRANT_API_KEY

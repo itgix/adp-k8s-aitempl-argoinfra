@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ .Release.Name }}
     component: api
@@ -85,6 +85,11 @@ spec:
             - name: gitops-workspace
               mountPath: /tmp/gitops-repo
 
+            {{- if .Values.modelCache.enabled }}
+            - name: model-cache
+              mountPath: /var/lib/adp-agent
+            {{- end }}
+
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: false
@@ -101,6 +106,12 @@ spec:
 
         - name: gitops-workspace
           emptyDir: {}
+
+        {{- if .Values.modelCache.enabled }}
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-model-cache
+        {{- end }}
 
       affinity:
         podAntiAffinity:
