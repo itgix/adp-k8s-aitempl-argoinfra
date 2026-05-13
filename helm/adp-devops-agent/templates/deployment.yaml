@@ -46,7 +46,7 @@ spec:
               protocol: TCP
           env:
             - name: PYTORCH_INDEX_URL
-              value: "{{ .Values.pytorchSettings.pytorch-index-url }}"
+              value: "{{ .Values.pytorchSettings.pytorchIndexUrl }}"
             {{- range .Values.secretEnv }}
             - name: {{ .name }}
               valueFrom:

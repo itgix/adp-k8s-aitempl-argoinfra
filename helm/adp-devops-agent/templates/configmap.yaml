@@ -28,11 +28,12 @@ data:
   QDRANT_URL: {{ .Values.qdrant.QDRANT_URL | quote }}
   USE_BEDROCK_EMBEDDINGS: {{ .Values.qdrant.useBedrockEmbeddings | quote }}
 
-  # Cache Settings (models and PyTorch packages)
+  # Cache Settings (models and virtual environment)
   {{- if .Values.modelCache.enabled }}
   HF_HUB_CACHE: {{ .Values.modelCache.hfCachePath | quote }}
-  PYTORCH_CACHE_DIR: {{ .Values.modelCache.torchCachePath | quote }}
-  SETUP_TORCH_AT_RUNTIME: {{ .Values.pytorch.setupAtRuntime | quote }}
+  {{- end }}
+  {{- if .Values.venvCache.enabled }}
+  VENV_CACHE_PATH: {{ .Values.venvCache.venvCachePath | quote }}
   {{- end }}
 
   # Branch Settings

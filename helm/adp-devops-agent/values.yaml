@@ -34,7 +34,7 @@ pytorchSettings:
   # CUDA 12.1: https://download.pytorch.org/whl/cu121 (GPU support)
   # CUDA 11.8: https://download.pytorch.org/whl/cu118 (older GPU support)
   # CPU-only: https://download.pytorch.org/whl/cpu (smaller, for CPU-only deployments)
-  pytorch-index-url: "https://download.pytorch.org/whl/cu121"
+  pytorchIndexUrl: "https://download.pytorch.org/whl/cu121"
 
 awsSettings:
   AWS_REGION: "eu-west-1"
@@ -72,7 +72,7 @@ modelCache:
   size: 10Gi
   storageClassName: standard
   # Cache directory path in container
-  hf-cache-path: /var/lib/adp-agent/hf-cache
+  hfCachePath: /var/lib/adp-agent/hf-cache
 
 # Virtual environment and pip cache PVC
 # Stores Python virtual environment, site-packages, and pip cache
@@ -80,7 +80,7 @@ venvCache:
   enabled: true
   size: 5Gi
   storageClassName: standard
-  venv-cache-path: /var/lib/adp-agent/venv-cache
+  venvCachePath: /var/lib/adp-agent/venv-cache
 
 secretEnv:
   - name: QDRANT_API_KEY
