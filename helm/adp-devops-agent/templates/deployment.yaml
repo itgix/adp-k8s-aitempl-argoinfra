@@ -39,7 +39,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
           args:
-            - git config --global --add safe.directory /tmp/gitops-repo 2>/dev/null || true && exec python main.py
+            - /app/entrypoint.sh
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -59,6 +59,16 @@ spec:
                 name: {{ .Values.configMap.name }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 30
+            successThreshold: 1
 
           livenessProbe:
             httpGet:
