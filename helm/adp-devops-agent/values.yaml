@@ -1,6 +1,14 @@
 # Default values for adp-devops-agent.
 replicaCount: 1
 
+# Infrastructure services configuration - those will be automatically overriden by ADP infra facts
+infra-services:
+  aws_account_id: "709825985650"
+  eks_cluster_name: "adp-dev"
+  region_short: "us"
+  environment: "dev"
+  project_name: "adp"
+
 image:
   repository: 709825985650.dkr.ecr.us-east-1.amazonaws.com/itgix/itgix-adp-devops-agent
   pullPolicy: IfNotPresent
@@ -79,7 +87,7 @@ modelCache:
 venvCache:
   enabled: true
   size: 5Gi
-  storageClassName: standard
+  storageClassName: gp3
   venvCachePath: /var/lib/adp-agent/venv-cache
 
 secretEnv:

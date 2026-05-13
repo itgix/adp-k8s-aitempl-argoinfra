@@ -39,7 +39,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
           args:
-            - git config --global --add safe.directory /tmp/gitops-repo && exec python main.py
+            - git config --global --add safe.directory /tmp/gitops-repo 2>/dev/null || true && exec python main.py
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
