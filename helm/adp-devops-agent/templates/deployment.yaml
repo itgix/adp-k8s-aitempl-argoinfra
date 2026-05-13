@@ -8,6 +8,8 @@ metadata:
     component: api
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
 
   selector:
     matchLabels:
