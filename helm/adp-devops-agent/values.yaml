@@ -4,7 +4,7 @@ replicaCount: 1
 image:
   repository: 709825985650.dkr.ecr.us-east-1.amazonaws.com/itgix/itgix-adp-devops-agent
   pullPolicy: IfNotPresent
-  tag: v1.1.0
+  tag: v1.1.1
 
 service:
   name: adp-devops-agent
