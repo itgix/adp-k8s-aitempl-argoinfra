@@ -78,7 +78,7 @@ configMap:
 modelCache:
   enabled: true
   size: 10Gi
-  storageClassName: standard
+  storageClassName: gp3
   # Cache directory path in container
   hfCachePath: /var/lib/adp-agent/hf-cache
 
