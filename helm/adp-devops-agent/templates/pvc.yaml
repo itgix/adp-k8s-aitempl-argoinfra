@@ -14,4 +14,22 @@ spec:
   resources:
     requests:
       storage: {{ .Values.modelCache.size }}
+---
+{{- end }}
+{{- if .Values.venvCache.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-venv-cache
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name }}
+    component: venv
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.venvCache.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.venvCache.size }}
 {{- end }}

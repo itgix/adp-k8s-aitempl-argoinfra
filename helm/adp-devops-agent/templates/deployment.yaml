@@ -45,6 +45,8 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
+            - name: PYTORCH_INDEX_URL
+              value: "{{ .Values.pytorchSettings.pytorch-index-url }}"
             {{- range .Values.secretEnv }}
             - name: {{ .name }}
               valueFrom:
@@ -87,7 +89,12 @@ spec:
 
             {{- if .Values.modelCache.enabled }}
             - name: model-cache
-              mountPath: /var/lib/adp-agent
+              mountPath: /var/lib/adp-agent/hf-cache
+            {{- end }}
+
+            {{- if .Values.venvCache.enabled }}
+            - name: venv-cache
+              mountPath: /var/lib/adp-agent/venv-cache
             {{- end }}
 
           securityContext:
@@ -111,6 +118,12 @@ spec:
         - name: model-cache
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-model-cache
+        {{- end }}
+
+        {{- if .Values.venvCache.enabled }}
+        - name: venv-cache
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-venv-cache
         {{- end }}
 
       affinity:
