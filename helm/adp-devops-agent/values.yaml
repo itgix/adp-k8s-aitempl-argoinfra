@@ -12,7 +12,7 @@ infra-services:
 image:
   repository: 709825985650.dkr.ecr.us-east-1.amazonaws.com/itgix/itgix-adp-devops-agent
   pullPolicy: IfNotPresent
-  tag: v1.2.2
+  tag: v1.3.0
 
 service:
   name: adp-devops-agent
@@ -90,8 +90,9 @@ indexingSettings:
 
 validationSettings:
   # Comma-separated validator names the agent runs on generated changes.
-  # New check names arrive with later agent releases.
-  ENABLED_VALIDATORS: "yamllint,k8s-schema"
+  # kyverno only runs for an environment/region whose infra-services values set
+  # enable_kyverno and enable_default_policies; elsewhere it is reported as skipped.
+  ENABLED_VALIDATORS: "yamllint,helm,k8s-schema,kyverno"
   # Read by the agent once the validation correction loop ships (#328).
   MAX_CORRECTION_ROUNDS: "2"
 
