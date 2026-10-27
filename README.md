@@ -116,11 +116,11 @@ Per-environment overrides go in `helm/<kyverno|kyverno-policies|policy-reporter>
 
 The `helm/adp-devops-agent` chart renders these maps into the agent ConfigMap (UPPER_SNAKE keys, string values). Override them in `helm/adp-devops-agent/values/<environment>/<region>/values.yaml`.
 
-The comma-separated `ENABLED_VALIDATORS` form needs an agent image with #328 MR 1 (adp-devops-agent!6); v1.2.1 and earlier fail at startup parsing it.
+The comma-separated `ENABLED_VALIDATORS` form needs agent v1.2.2 or later; v1.2.1 and earlier fail at startup parsing it. The `helm` and `kyverno` checks need agent v1.3.0, whose image ships helm, kubeconform with the Kubernetes schemas, and the Kyverno CLI.
 
 ```yaml
 validationSettings:
-  ENABLED_VALIDATORS: "yamllint,k8s-schema"   # comma-separated validator names; new names arrive with later agent releases
+  ENABLED_VALIDATORS: "yamllint,helm,k8s-schema,kyverno"   # comma-separated validator names
   MAX_CORRECTION_ROUNDS: "2"                  # read by the agent once the correction loop ships
 ```
 
@@ -141,6 +141,8 @@ The `infra-services` Application also sets `infraContext` from infra-facts. Empt
 |---|---|
 | `INFRA_GITOPS_REPO_URL` | `gitops_destination_repo` |
 | `INFRA_GITOPS_REVISION` | `default_policies_branch`, default `HEAD` |
+
+The `kyverno` check reads the infra GitOps repo at `INFRA_GITOPS_REVISION` with the agent's GitLab token and checks a proposal per affected environment/region against the `helm/kyverno-policies` chart as the `default-policies` Application renders it. It only runs where that environment's `infra-services` values set `enable_kyverno` and `enable_default_policies` (see [Kyverno policy engine](#kyverno-policy-engine-optional)); elsewhere, or when the agent's token cannot read the infra repo, the check is reported as skipped with the reason.
 
 There is no environment or region setting: the agent takes the target environment and region from the request and the application's `values/<env>/<region>/` folders.
 
